@@ -4,7 +4,7 @@ import { Button } from './Button';
 import { generateBannerImage } from '../services/geminiService';
 
 interface BannerGeneratorProps {
-  onGenerateSuccess: (url: string, config: GenerationConfig) => void;
+  onGenerateSuccess: (url: string, config: GenerationConfig, referenceImage?: string) => void;
   onError: (error: string) => void;
   isGenerating: boolean;
   setIsGenerating: (isGenerating: boolean) => void;
@@ -98,17 +98,16 @@ export const BannerGenerator: React.FC<BannerGeneratorProps> = ({
         // Process sequentially to avoid rate limits or overwhelming the client
         for (const ratio of selectedBatchRatios) {
           const url = await generateBannerImage(basePrompt, ratio, config.imageSize, refImg);
-          onGenerateSuccess(url, { ...config, aspectRatio: ratio });
+          onGenerateSuccess(url, { ...config, aspectRatio: ratio }, refImg);
         }
       } else {
         // Single generation
         const url = await generateBannerImage(basePrompt, config.aspectRatio, config.imageSize, refImg);
-        onGenerateSuccess(url, config);
+        onGenerateSuccess(url, config, refImg);
       }
     } catch (err: any) {
       onError(err.message || "Failed to generate image. Please try again.");
       if (err.message && err.message.includes("Requested entity was not found")) {
-         // Reset key logic could happen here, but usually handled by global error boundary or manual reset
          alert("API Key invalid or project not found. Please refresh to select a new key.");
       }
     } finally {

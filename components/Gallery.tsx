@@ -1,11 +1,11 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { GeneratedImage } from '../types';
-import { ImageEditor } from './ImageEditor';
 import { Button } from './Button';
 
 interface GalleryProps {
   images: GeneratedImage[];
   isLoading?: boolean;
+  onEdit: (image: GeneratedImage) => void;
 }
 
 const SkeletonCard = () => (
@@ -86,7 +86,7 @@ const Lightbox: React.FC<LightboxProps> = ({ image, onClose }) => {
           </button>
           <div className="w-px h-4 bg-gray-700 mx-1"></div>
           <button onClick={reset} className="p-2 text-gray-300 hover:text-white hover:bg-gray-700 rounded transition-colors" title="Reset Zoom">
-             <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fillRule="evenodd" d="M4 2a1 1 0 011 1v2.101a7.002 7.002 0 0111.601 2.566 1 1 0 11-1.885.666A5.002 5.002 0 005.999 7H9a1 1 0 110 2H4a1 1 0 01-1-1V3a1 1 0 011-1zm.008 9.057a1 1 0 011.276.61A5.002 5.002 0 0014.001 13H11a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0v-2.101a7.002 7.002 0 01-11.601-2.566 1 1 0 01.61-1.276z" clipRule="evenodd" /></svg>
+             <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fillRule="evenodd" d="M4 2a1 1 0 011-1v2.101a7.002 7.002 0 0111.601 2.566 1 1 0 11-1.885.666A5.002 5.002 0 005.999 7H9a1 1 0 110 2H4a1 1 0 01-1-1V3a1 1 0 011-1zm.008 9.057a1 1 0 011.276.61A5.002 5.002 0 0014.001 13H11a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0v-2.101a7.002 7.002 0 01-11.601-2.566 1 1 0 01.61-1.276z" clipRule="evenodd" /></svg>
           </button>
         </div>
         <button 
@@ -127,8 +127,7 @@ const Lightbox: React.FC<LightboxProps> = ({ image, onClose }) => {
   );
 };
 
-export const Gallery: React.FC<GalleryProps> = ({ images, isLoading = false }) => {
-  const [editingImage, setEditingImage] = useState<GeneratedImage | null>(null);
+export const Gallery: React.FC<GalleryProps> = ({ images, isLoading = false, onEdit }) => {
   const [inspectingImage, setInspectingImage] = useState<GeneratedImage | null>(null);
 
   if (images.length === 0 && !isLoading) {
@@ -177,7 +176,7 @@ export const Gallery: React.FC<GalleryProps> = ({ images, isLoading = false }) =
                        </svg>
                      </button>
                     <button
-                       onClick={() => setEditingImage(image)}
+                       onClick={() => onEdit(image)}
                        className="bg-brand-600 text-white px-5 py-2.5 rounded-lg font-bold hover:bg-brand-500 transition-all flex items-center gap-2 shadow-xl hover:shadow-brand-500/40"
                      >
                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
@@ -214,14 +213,6 @@ export const Gallery: React.FC<GalleryProps> = ({ images, isLoading = false }) =
           ))}
         </div>
       </div>
-      
-      {editingImage && (
-        <ImageEditor 
-          imageSrc={editingImage.url} 
-          onClose={() => setEditingImage(null)}
-          onSave={() => setEditingImage(null)}
-        />
-      )}
 
       {inspectingImage && (
         <Lightbox 

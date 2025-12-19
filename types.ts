@@ -19,6 +19,7 @@ export interface GeneratedImage {
   aspectRatio: AspectRatio;
   size: ImageSize;
   timestamp: number;
+  referenceImage?: string;
 }
 
 export interface GenerationConfig {

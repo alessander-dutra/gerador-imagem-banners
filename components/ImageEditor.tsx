@@ -6,6 +6,7 @@ interface ImageEditorProps {
   imageSrc: string;
   onClose: () => void;
   onSave: () => void;
+  onRegenerate?: () => void;
 }
 
 interface Area {
@@ -36,7 +37,7 @@ const PRESETS = [
 
 type ExportFormat = 'png' | 'jpeg' | 'webp';
 
-export const ImageEditor: React.FC<ImageEditorProps> = ({ imageSrc, onClose, onSave }) => {
+export const ImageEditor: React.FC<ImageEditorProps> = ({ imageSrc, onClose, onSave, onRegenerate }) => {
   const [crop, setCrop] = useState({ x: 0, y: 0 });
   const [zoom, setZoom] = useState(1);
   const [croppedAreaPixels, setCroppedAreaPixels] = useState<Area | null>(null);
@@ -108,6 +109,13 @@ export const ImageEditor: React.FC<ImageEditorProps> = ({ imageSrc, onClose, onS
         setWatermarkImage(reader.result as string);
       };
       reader.readAsDataURL(file);
+    }
+  };
+
+  const clearWatermarkImage = () => {
+    setWatermarkImage(null);
+    if (watermarkFileRef.current) {
+        watermarkFileRef.current.value = '';
     }
   };
 
@@ -238,8 +246,22 @@ export const ImageEditor: React.FC<ImageEditorProps> = ({ imageSrc, onClose, onS
       <div className="bg-gray-800 w-full max-w-6xl h-[90vh] rounded-2xl overflow-hidden flex flex-col border border-gray-700 shadow-2xl">
         {/* Header */}
         <div className="p-4 border-b border-gray-700 flex justify-between items-center bg-gray-900">
-          <h3 className="text-lg font-semibold text-white">Edit Image</h3>
-          <button onClick={onClose} className="text-gray-400 hover:text-white">
+          <div className="flex items-center gap-3">
+             <h3 className="text-lg font-semibold text-white">Advanced Image Editor</h3>
+             {onRegenerate && (
+                <button 
+                  onClick={onRegenerate}
+                  className="flex items-center gap-1.5 px-3 py-1.5 bg-brand-900/30 text-brand-400 hover:text-white hover:bg-brand-600 rounded-lg text-xs font-bold transition-all border border-brand-500/20"
+                  title="Generate a new version of this image using same prompt"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                  </svg>
+                  Generate New Image
+                </button>
+             )}
+          </div>
+          <button onClick={onClose} className="text-gray-400 hover:text-white p-2 rounded-lg hover:bg-gray-800 transition-colors">
             <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
             </svg>
@@ -379,7 +401,7 @@ export const ImageEditor: React.FC<ImageEditorProps> = ({ imageSrc, onClose, onS
                         type="text" 
                         value={text} 
                         onChange={(e) => setText(e.target.value)} 
-                        placeholder="Enter text here..." 
+                        placeholder="Enter ad copy..." 
                         className="w-full bg-gray-900 border border-gray-600 rounded-lg px-3 py-2 text-white focus:ring-2 focus:ring-brand-500 outline-none placeholder-gray-500"
                     />
                 </div>
@@ -516,24 +538,47 @@ export const ImageEditor: React.FC<ImageEditorProps> = ({ imageSrc, onClose, onS
                         )}
 
                         {watermarkType === 'image' && (
-                            <div>
+                            <div className="space-y-3">
                                 <input 
                                     type="file" ref={watermarkFileRef}
                                     accept="image/*"
                                     onChange={handleWatermarkFileChange}
                                     className="hidden"
                                 />
-                                <Button 
-                                    variant="secondary" className="w-full text-xs py-1.5"
-                                    onClick={() => watermarkFileRef.current?.click()}
-                                >
-                                    {watermarkImage ? 'Change Logo' : 'Upload Logo'}
-                                </Button>
+                                {!watermarkImage ? (
+                                    <button
+                                        onClick={() => watermarkFileRef.current?.click()}
+                                        className="w-full border-2 border-dashed border-gray-700 rounded-lg p-4 hover:border-brand-500 hover:bg-gray-700/50 transition-all flex flex-col items-center gap-1 text-gray-400"
+                                    >
+                                        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                                        </svg>
+                                        <span className="text-xs">Upload Logo</span>
+                                    </button>
+                                ) : (
+                                    <div className="relative group rounded-lg border border-gray-700 bg-gray-900 p-2 flex items-center gap-3">
+                                        <div className="w-10 h-10 rounded overflow-hidden bg-white/10 flex items-center justify-center shrink-0">
+                                            <img src={watermarkImage} alt="WM" className="max-w-full max-h-full object-contain" />
+                                        </div>
+                                        <div className="flex-1 overflow-hidden">
+                                            <p className="text-[10px] text-gray-400 truncate">Logo Active</p>
+                                            <button onClick={() => watermarkFileRef.current?.click()} className="text-[10px] text-brand-400 font-bold hover:underline">Replace</button>
+                                        </div>
+                                        <button 
+                                            onClick={clearWatermarkImage}
+                                            className="p-1 text-gray-500 hover:text-red-500 transition-colors"
+                                        >
+                                            <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+                                                <path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd" />
+                                            </svg>
+                                        </button>
+                                    </div>
+                                )}
                             </div>
                         )}
 
                         <div>
-                            <div className="flex justify-between text-xs text-gray-300 mb-1"><span>Opacity</span></div>
+                            <div className="flex justify-between text-xs text-gray-300 mb-1"><span>Opacity</span><span>{watermarkOpacity}%</span></div>
                             <input type="range" min={0} max={100} value={watermarkOpacity} onChange={(e) => setWatermarkOpacity(Number(e.target.value))} className="w-full h-1 bg-gray-600 rounded-lg appearance-none cursor-pointer accent-brand-500"/>
                         </div>
 
@@ -619,10 +664,10 @@ export const ImageEditor: React.FC<ImageEditorProps> = ({ imageSrc, onClose, onS
                   <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                     <path fillRule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clipRule="evenodd" />
                   </svg>
-                  Download {exportFormat.toUpperCase()}
+                  Export & Download
                 </Button>
                 <Button onClick={onClose} variant="outline" className="w-full justify-center">
-                  Cancel
+                  Discard Changes
                 </Button>
               </div>
             </div>

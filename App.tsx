@@ -2,7 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { BannerGenerator } from './components/BannerGenerator';
 import { Gallery } from './components/Gallery';
 import { ApiKeySelector } from './components/ApiKeySelector';
+import { ImageEditor } from './components/ImageEditor';
 import { GeneratedImage, GenerationConfig } from './types';
+import { generateBannerImage } from './services/geminiService';
 
 const generateId = () => {
   if (typeof crypto !== 'undefined' && crypto.randomUUID) {
@@ -16,17 +18,47 @@ const App: React.FC = () => {
   const [images, setImages] = useState<GeneratedImage[]>([]);
   const [error, setError] = useState<string | null>(null);
   const [isGenerating, setIsGenerating] = useState(false);
+  const [editingImage, setEditingImage] = useState<GeneratedImage | null>(null);
 
-  const handleGenerateSuccess = (url: string, config: GenerationConfig) => {
+  const handleGenerateSuccess = (url: string, config: GenerationConfig, referenceImage?: string) => {
+    const promptUsed = `
+      Create a high-end, professional advertising banner for a product named "${config.productName}".
+      Product Description: ${config.description}.
+      ${config.url ? `Product URL context: ${config.url}` : ''}
+      Style: Commercial photography, studio lighting, highly detailed, photorealistic, visually striking, minimal text, focus on the product.
+    `.trim();
+
     const newImage: GeneratedImage = {
       id: generateId(),
       url,
-      prompt: config.description, // Storing description as prompt reference
+      prompt: promptUsed,
       aspectRatio: config.aspectRatio,
       size: config.imageSize,
-      timestamp: Date.now()
+      timestamp: Date.now(),
+      referenceImage
     };
     setImages(prev => [newImage, ...prev]);
+  };
+
+  const handleRegenerate = async (image: GeneratedImage) => {
+    setEditingImage(null); // Close modal
+    setIsGenerating(true);
+    setError(null);
+    try {
+      const url = await generateBannerImage(image.prompt, image.aspectRatio, image.size, image.referenceImage);
+      const newImage: GeneratedImage = {
+        ...image,
+        id: generateId(),
+        url,
+        timestamp: Date.now()
+      };
+      setImages(prev => [newImage, ...prev]);
+      setEditingImage(newImage); // Auto-open the new one in editor
+    } catch (err: any) {
+      setError(err.message || "Failed to regenerate image.");
+    } finally {
+      setIsGenerating(false);
+    }
   };
 
   const handleError = (msg: string) => {
@@ -84,7 +116,7 @@ const App: React.FC = () => {
                 />
 
                 {error && (
-                    <div className="bg-red-900/20 border border-red-500/50 text-red-200 px-4 py-3 rounded-lg text-sm flex items-start gap-3">
+                    <div className="bg-red-900/20 border border-red-500/50 text-red-200 px-4 py-3 rounded-lg text-sm flex items-start gap-3 animate-in fade-in slide-in-from-top-2">
                          <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-red-500 shrink-0 mt-0.5" viewBox="0 0 20 20" fill="currentColor">
                             <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
                           </svg>
@@ -96,11 +128,20 @@ const App: React.FC = () => {
 
           {/* Right Column: Gallery */}
           <div className="lg:col-span-8 xl:col-span-8">
-            <Gallery images={images} isLoading={isGenerating} />
+            <Gallery images={images} isLoading={isGenerating} onEdit={setEditingImage} />
           </div>
 
         </div>
       </main>
+
+      {editingImage && (
+        <ImageEditor 
+          imageSrc={editingImage.url} 
+          onClose={() => setEditingImage(null)}
+          onSave={() => setEditingImage(null)}
+          onRegenerate={() => handleRegenerate(editingImage)}
+        />
+      )}
     </div>
   );
 };
