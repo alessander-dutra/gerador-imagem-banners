@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useRef } from 'react';
+import React, { useState, useCallback, useRef, useEffect } from 'react';
 import Cropper from 'react-easy-crop';
 import { Button } from './Button';
 
@@ -38,6 +38,14 @@ const PRESETS = [
 type ExportFormat = 'png' | 'jpeg' | 'webp';
 
 export const ImageEditor: React.FC<ImageEditorProps> = ({ imageSrc, onClose, onSave, onRegenerate }) => {
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') onClose();
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [onClose]);
+
   const [crop, setCrop] = useState({ x: 0, y: 0 });
   const [zoom, setZoom] = useState(1);
   const [croppedAreaPixels, setCroppedAreaPixels] = useState<Area | null>(null);
@@ -261,7 +269,11 @@ export const ImageEditor: React.FC<ImageEditorProps> = ({ imageSrc, onClose, onS
                 </button>
              )}
           </div>
-          <button onClick={onClose} className="text-gray-400 hover:text-white p-2 rounded-lg hover:bg-gray-800 transition-colors">
+          <button
+            onClick={onClose}
+            className="text-gray-400 hover:text-white p-2 rounded-lg hover:bg-gray-800 transition-colors"
+            aria-label="Close editor"
+          >
             <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
             </svg>
@@ -402,6 +414,7 @@ export const ImageEditor: React.FC<ImageEditorProps> = ({ imageSrc, onClose, onS
                         value={text} 
                         onChange={(e) => setText(e.target.value)} 
                         placeholder="Enter ad copy..." 
+                        aria-label="Text overlay content"
                         className="w-full bg-gray-900 border border-gray-600 rounded-lg px-3 py-2 text-white focus:ring-2 focus:ring-brand-500 outline-none placeholder-gray-500"
                     />
                 </div>
