@@ -165,11 +165,12 @@ export const Gallery: React.FC<GalleryProps> = ({ images, isLoading = false, onE
                       className="max-h-full max-w-full shadow-2xl transition-transform duration-500 group-hover:scale-[1.02]"
                   />
                   
-                  <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-3 backdrop-blur-sm">
+                  <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 group-focus-within:opacity-100 transition-opacity flex items-center justify-center gap-3 backdrop-blur-sm">
                     <button
                        onClick={() => setInspectingImage(image)}
                        className="bg-white/10 hover:bg-white/20 text-white p-3 rounded-full transition-all hover:scale-110 border border-white/20 shadow-xl"
                        title="Inspect Details"
+                       aria-label="Inspect Details"
                      >
                        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7" />
