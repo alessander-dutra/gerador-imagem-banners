@@ -3,7 +3,7 @@ import { BannerGenerator } from './components/BannerGenerator';
 import { Gallery } from './components/Gallery';
 import { ApiKeySelector } from './components/ApiKeySelector';
 import { ImageEditor } from './components/ImageEditor';
-import { GeneratedImage, GenerationConfig } from './types';
+import { GeneratedImage, GenerationConfig, AspectRatio, ImageSize } from './types';
 import { generateBannerImage } from './services/geminiService';
 
 const generateId = () => {
