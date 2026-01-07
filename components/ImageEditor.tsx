@@ -261,7 +261,7 @@ export const ImageEditor: React.FC<ImageEditorProps> = ({ imageSrc, onClose, onS
                 </button>
              )}
           </div>
-          <button onClick={onClose} className="text-gray-400 hover:text-white p-2 rounded-lg hover:bg-gray-800 transition-colors">
+          <button onClick={onClose} className="text-gray-400 hover:text-white p-2 rounded-lg hover:bg-gray-800 transition-colors" aria-label="Close editor">
             <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
             </svg>
@@ -370,6 +370,7 @@ export const ImageEditor: React.FC<ImageEditorProps> = ({ imageSrc, onClose, onS
                             key={p.name}
                             onClick={() => applyPreset(p)}
                             className="group relative flex flex-col items-center gap-1 focus:outline-none"
+                            aria-label={`Apply ${p.name} filter`}
                         >
                             <div className="relative w-full aspect-square rounded overflow-hidden border border-gray-600 group-hover:border-brand-500 transition-colors">
                                 <img 
@@ -434,14 +435,14 @@ export const ImageEditor: React.FC<ImageEditorProps> = ({ imageSrc, onClose, onS
 
                          <div>
                             <label className="text-xs text-gray-400 mb-1 block">Alignment</label>
-                            <div className="flex bg-gray-900 rounded border border-gray-600">
-                                <button onClick={() => setTextAlign('left')} className={`flex-1 py-1.5 flex justify-center hover:bg-gray-700 ${textAlign === 'left' ? 'bg-gray-700 text-white' : 'text-gray-400'}`}>
+                            <div className="flex bg-gray-900 rounded border border-gray-600" role="group" aria-label="Text Alignment">
+                                <button onClick={() => setTextAlign('left')} aria-label="Align Left" aria-pressed={textAlign === 'left'} className={`flex-1 py-1.5 flex justify-center hover:bg-gray-700 ${textAlign === 'left' ? 'bg-gray-700 text-white' : 'text-gray-400'}`}>
                                      <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor"><path fillRule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h6a1 1 0 110 2H4a1 1 0 01-1-1z" clipRule="evenodd" /></svg>
                                 </button>
-                                <button onClick={() => setTextAlign('center')} className={`flex-1 py-1.5 flex justify-center border-l border-r border-gray-600 hover:bg-gray-700 ${textAlign === 'center' ? 'bg-gray-700 text-white' : 'text-gray-400'}`}>
+                                <button onClick={() => setTextAlign('center')} aria-label="Align Center" aria-pressed={textAlign === 'center'} className={`flex-1 py-1.5 flex justify-center border-l border-r border-gray-600 hover:bg-gray-700 ${textAlign === 'center' ? 'bg-gray-700 text-white' : 'text-gray-400'}`}>
                                     <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor"><path fillRule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM7 15a1 1 0 011-1h4a1 1 0 110 2H8a1 1 0 01-1-1z" clipRule="evenodd" /></svg>
                                 </button>
-                                <button onClick={() => setTextAlign('right')} className={`flex-1 py-1.5 flex justify-center hover:bg-gray-700 ${textAlign === 'right' ? 'bg-gray-700 text-white' : 'text-gray-400'}`}>
+                                <button onClick={() => setTextAlign('right')} aria-label="Align Right" aria-pressed={textAlign === 'right'} className={`flex-1 py-1.5 flex justify-center hover:bg-gray-700 ${textAlign === 'right' ? 'bg-gray-700 text-white' : 'text-gray-400'}`}>
                                      <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor"><path fillRule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM9 15a1 1 0 011-1h6a1 1 0 110 2H10a1 1 0 01-1-1z" clipRule="evenodd" /></svg>
                                 </button>
                             </div>
@@ -456,17 +457,18 @@ export const ImageEditor: React.FC<ImageEditorProps> = ({ imageSrc, onClose, onS
                                 type="range" min={12} max={200} value={fontSize}
                                 onChange={(e) => setFontSize(Number(e.target.value))}
                                 className="w-full h-1 bg-gray-600 rounded-lg appearance-none cursor-pointer accent-brand-500"
+                                aria-label="Text Size"
                             />
                         </div>
 
                          <div className="grid grid-cols-2 gap-3">
                             <div>
                                 <div className="flex justify-between text-xs text-gray-300 mb-1"><span>Pos X</span></div>
-                                <input type="range" min={0} max={100} value={textX} onChange={(e) => setTextX(Number(e.target.value))} className="w-full h-1 bg-gray-600 rounded-lg appearance-none cursor-pointer accent-brand-500"/>
+                                <input type="range" min={0} max={100} value={textX} onChange={(e) => setTextX(Number(e.target.value))} className="w-full h-1 bg-gray-600 rounded-lg appearance-none cursor-pointer accent-brand-500" aria-label="Text Position X" />
                             </div>
                             <div>
                                 <div className="flex justify-between text-xs text-gray-300 mb-1"><span>Pos Y</span></div>
-                                <input type="range" min={0} max={100} value={textY} onChange={(e) => setTextY(Number(e.target.value))} className="w-full h-1 bg-gray-600 rounded-lg appearance-none cursor-pointer accent-brand-500"/>
+                                <input type="range" min={0} max={100} value={textY} onChange={(e) => setTextY(Number(e.target.value))} className="w-full h-1 bg-gray-600 rounded-lg appearance-none cursor-pointer accent-brand-500" aria-label="Text Position Y" />
                             </div>
                         </div>
 
@@ -479,17 +481,17 @@ export const ImageEditor: React.FC<ImageEditorProps> = ({ imageSrc, onClose, onS
                                 </div>
                                 <div>
                                      <label className="text-xs text-gray-500 block mb-1">Blur: {textShadowBlur}px</label>
-                                     <input type="range" min={0} max={20} value={textShadowBlur} onChange={(e) => setTextShadowBlur(Number(e.target.value))} className="w-full h-1 bg-gray-600 rounded-lg appearance-none cursor-pointer accent-brand-500"/>
+                                     <input type="range" min={0} max={20} value={textShadowBlur} onChange={(e) => setTextShadowBlur(Number(e.target.value))} className="w-full h-1 bg-gray-600 rounded-lg appearance-none cursor-pointer accent-brand-500" aria-label="Text Shadow Blur"/>
                                 </div>
                              </div>
                              <div className="grid grid-cols-2 gap-3">
                                 <div>
                                      <label className="text-xs text-gray-500 block mb-1">Offset X</label>
-                                     <input type="range" min={-20} max={20} value={textShadowOffsetX} onChange={(e) => setTextShadowOffsetX(Number(e.target.value))} className="w-full h-1 bg-gray-600 rounded-lg appearance-none cursor-pointer accent-brand-500"/>
+                                     <input type="range" min={-20} max={20} value={textShadowOffsetX} onChange={(e) => setTextShadowOffsetX(Number(e.target.value))} className="w-full h-1 bg-gray-600 rounded-lg appearance-none cursor-pointer accent-brand-500" aria-label="Text Shadow Offset X"/>
                                 </div>
                                 <div>
                                      <label className="text-xs text-gray-500 block mb-1">Offset Y</label>
-                                     <input type="range" min={-20} max={20} value={textShadowOffsetY} onChange={(e) => setTextShadowOffsetY(Number(e.target.value))} className="w-full h-1 bg-gray-600 rounded-lg appearance-none cursor-pointer accent-brand-500"/>
+                                     <input type="range" min={-20} max={20} value={textShadowOffsetY} onChange={(e) => setTextShadowOffsetY(Number(e.target.value))} className="w-full h-1 bg-gray-600 rounded-lg appearance-none cursor-pointer accent-brand-500" aria-label="Text Shadow Offset Y"/>
                                 </div>
                              </div>
                         </div>
@@ -567,6 +569,7 @@ export const ImageEditor: React.FC<ImageEditorProps> = ({ imageSrc, onClose, onS
                                         <button 
                                             onClick={clearWatermarkImage}
                                             className="p-1 text-gray-500 hover:text-red-500 transition-colors"
+                                            aria-label="Remove watermark logo"
                                         >
                                             <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
                                                 <path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd" />
@@ -579,7 +582,7 @@ export const ImageEditor: React.FC<ImageEditorProps> = ({ imageSrc, onClose, onS
 
                         <div>
                             <div className="flex justify-between text-xs text-gray-300 mb-1"><span>Opacity</span><span>{watermarkOpacity}%</span></div>
-                            <input type="range" min={0} max={100} value={watermarkOpacity} onChange={(e) => setWatermarkOpacity(Number(e.target.value))} className="w-full h-1 bg-gray-600 rounded-lg appearance-none cursor-pointer accent-brand-500"/>
+                            <input type="range" min={0} max={100} value={watermarkOpacity} onChange={(e) => setWatermarkOpacity(Number(e.target.value))} className="w-full h-1 bg-gray-600 rounded-lg appearance-none cursor-pointer accent-brand-500" aria-label="Watermark Opacity" />
                         </div>
 
                         <div>
@@ -594,17 +597,18 @@ export const ImageEditor: React.FC<ImageEditorProps> = ({ imageSrc, onClose, onS
                                 type="range" min={watermarkSizeUnit === '%' ? 1 : 20} max={watermarkSizeUnit === '%' ? 100 : 800} 
                                 value={watermarkSize} onChange={(e) => setWatermarkSize(Number(e.target.value))} 
                                 className="w-full h-1 bg-gray-600 rounded-lg appearance-none cursor-pointer accent-brand-500"
+                                aria-label="Watermark Size"
                             />
                         </div>
 
                         <div className="grid grid-cols-2 gap-3">
                             <div>
                                 <div className="flex justify-between text-xs text-gray-300 mb-1"><span>Pos X</span></div>
-                                <input type="range" min={0} max={100} value={watermarkX} onChange={(e) => setWatermarkX(Number(e.target.value))} className="w-full h-1 bg-gray-600 rounded-lg appearance-none cursor-pointer accent-brand-500"/>
+                                <input type="range" min={0} max={100} value={watermarkX} onChange={(e) => setWatermarkX(Number(e.target.value))} className="w-full h-1 bg-gray-600 rounded-lg appearance-none cursor-pointer accent-brand-500" aria-label="Watermark Position X" />
                             </div>
                             <div>
                                 <div className="flex justify-between text-xs text-gray-300 mb-1"><span>Pos Y</span></div>
-                                <input type="range" min={0} max={100} value={watermarkY} onChange={(e) => setWatermarkY(Number(e.target.value))} className="w-full h-1 bg-gray-600 rounded-lg appearance-none cursor-pointer accent-brand-500"/>
+                                <input type="range" min={0} max={100} value={watermarkY} onChange={(e) => setWatermarkY(Number(e.target.value))} className="w-full h-1 bg-gray-600 rounded-lg appearance-none cursor-pointer accent-brand-500" aria-label="Watermark Position Y" />
                             </div>
                         </div>
                     </div>
@@ -621,7 +625,16 @@ export const ImageEditor: React.FC<ImageEditorProps> = ({ imageSrc, onClose, onS
                   return (
                     <div key={label}>
                       <div className="flex justify-between text-xs text-gray-300 mb-1"><span>{label}</span><span>{val}{label === 'Zoom' ? 'x' : '%'}</span></div>
-                      <input type="range" min={min} max={max} step={step} value={val} onChange={(e) => setter(Number(e.target.value))} className="w-full h-1 bg-gray-600 rounded-lg appearance-none cursor-pointer accent-brand-500"/>
+                      <input
+                        type="range"
+                        min={min}
+                        max={max}
+                        step={step}
+                        value={val}
+                        onChange={(e) => setter(Number(e.target.value))}
+                        className="w-full h-1 bg-gray-600 rounded-lg appearance-none cursor-pointer accent-brand-500"
+                        aria-label={label}
+                      />
                     </div>
                   );
                 })}
