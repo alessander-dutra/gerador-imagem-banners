@@ -261,7 +261,7 @@ export const ImageEditor: React.FC<ImageEditorProps> = ({ imageSrc, onClose, onS
                 </button>
              )}
           </div>
-          <button onClick={onClose} className="text-gray-400 hover:text-white p-2 rounded-lg hover:bg-gray-800 transition-colors">
+          <button onClick={onClose} aria-label="Close editor" className="text-gray-400 hover:text-white p-2 rounded-lg hover:bg-gray-800 transition-colors">
             <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
             </svg>
@@ -435,13 +435,13 @@ export const ImageEditor: React.FC<ImageEditorProps> = ({ imageSrc, onClose, onS
                          <div>
                             <label className="text-xs text-gray-400 mb-1 block">Alignment</label>
                             <div className="flex bg-gray-900 rounded border border-gray-600">
-                                <button onClick={() => setTextAlign('left')} className={`flex-1 py-1.5 flex justify-center hover:bg-gray-700 ${textAlign === 'left' ? 'bg-gray-700 text-white' : 'text-gray-400'}`}>
+                                <button onClick={() => setTextAlign('left')} aria-label="Align text left" className={`flex-1 py-1.5 flex justify-center hover:bg-gray-700 ${textAlign === 'left' ? 'bg-gray-700 text-white' : 'text-gray-400'}`}>
                                      <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor"><path fillRule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h6a1 1 0 110 2H4a1 1 0 01-1-1z" clipRule="evenodd" /></svg>
                                 </button>
-                                <button onClick={() => setTextAlign('center')} className={`flex-1 py-1.5 flex justify-center border-l border-r border-gray-600 hover:bg-gray-700 ${textAlign === 'center' ? 'bg-gray-700 text-white' : 'text-gray-400'}`}>
+                                <button onClick={() => setTextAlign('center')} aria-label="Align text center" className={`flex-1 py-1.5 flex justify-center border-l border-r border-gray-600 hover:bg-gray-700 ${textAlign === 'center' ? 'bg-gray-700 text-white' : 'text-gray-400'}`}>
                                     <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor"><path fillRule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM7 15a1 1 0 011-1h4a1 1 0 110 2H8a1 1 0 01-1-1z" clipRule="evenodd" /></svg>
                                 </button>
-                                <button onClick={() => setTextAlign('right')} className={`flex-1 py-1.5 flex justify-center hover:bg-gray-700 ${textAlign === 'right' ? 'bg-gray-700 text-white' : 'text-gray-400'}`}>
+                                <button onClick={() => setTextAlign('right')} aria-label="Align text right" className={`flex-1 py-1.5 flex justify-center hover:bg-gray-700 ${textAlign === 'right' ? 'bg-gray-700 text-white' : 'text-gray-400'}`}>
                                      <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor"><path fillRule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM9 15a1 1 0 011-1h6a1 1 0 110 2H10a1 1 0 01-1-1z" clipRule="evenodd" /></svg>
                                 </button>
                             </div>
@@ -566,6 +566,7 @@ export const ImageEditor: React.FC<ImageEditorProps> = ({ imageSrc, onClose, onS
                                         </div>
                                         <button 
                                             onClick={clearWatermarkImage}
+                                            aria-label="Clear watermark image"
                                             className="p-1 text-gray-500 hover:text-red-500 transition-colors"
                                         >
                                             <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">

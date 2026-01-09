@@ -170,6 +170,7 @@ export const BannerGenerator: React.FC<BannerGeneratorProps> = ({
                        <button 
                          type="button"
                          onClick={clearReferenceImage}
+                         aria-label="Clear reference image"
                          className="absolute top-2 right-2 bg-black/70 text-white p-1 rounded-full hover:bg-red-500/80 transition-colors"
                        >
                          <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
