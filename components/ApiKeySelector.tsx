@@ -52,7 +52,7 @@ export const ApiKeySelector: React.FC<ApiKeySelectorProps> = ({ onKeySelected })
       <div className="bg-gray-800 border border-gray-700 rounded-2xl p-8 max-w-md w-full text-center shadow-2xl">
         <div className="mb-6 flex justify-center">
           <div className="h-16 w-16 bg-brand-900/50 rounded-full flex items-center justify-center border border-brand-500/30">
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-brand-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" className="h-8 w-8 text-brand-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11.536 9.636a10.389 10.389 0 01-3.636 9.364l-1.518-1.518 1.518-1.518-1.518-1.518 1.518-1.518-1.518-1.518 1.518-1.518 1.518 1.518 1.518-1.518 1.518-1.518 9.364 3.636 5.743-7.744A6 6 0 0121 9z" />
             </svg>
           </div>
