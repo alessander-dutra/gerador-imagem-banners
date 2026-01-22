@@ -261,8 +261,8 @@ export const ImageEditor: React.FC<ImageEditorProps> = ({ imageSrc, onClose, onS
                 </button>
              )}
           </div>
-          <button onClick={onClose} className="text-gray-400 hover:text-white p-2 rounded-lg hover:bg-gray-800 transition-colors">
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <button aria-label="Close Editor" onClick={onClose} className="text-gray-400 hover:text-white p-2 rounded-lg hover:bg-gray-800 transition-colors">
+            <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
             </svg>
           </button>
@@ -435,14 +435,14 @@ export const ImageEditor: React.FC<ImageEditorProps> = ({ imageSrc, onClose, onS
                          <div>
                             <label className="text-xs text-gray-400 mb-1 block">Alignment</label>
                             <div className="flex bg-gray-900 rounded border border-gray-600">
-                                <button onClick={() => setTextAlign('left')} className={`flex-1 py-1.5 flex justify-center hover:bg-gray-700 ${textAlign === 'left' ? 'bg-gray-700 text-white' : 'text-gray-400'}`}>
-                                     <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor"><path fillRule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h6a1 1 0 110 2H4a1 1 0 01-1-1z" clipRule="evenodd" /></svg>
+                                <button aria-label="Align Left" onClick={() => setTextAlign('left')} className={`flex-1 py-1.5 flex justify-center hover:bg-gray-700 ${textAlign === 'left' ? 'bg-gray-700 text-white' : 'text-gray-400'}`}>
+                                     <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor"><path fillRule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h6a1 1 0 110 2H4a1 1 0 01-1-1z" clipRule="evenodd" /></svg>
                                 </button>
-                                <button onClick={() => setTextAlign('center')} className={`flex-1 py-1.5 flex justify-center border-l border-r border-gray-600 hover:bg-gray-700 ${textAlign === 'center' ? 'bg-gray-700 text-white' : 'text-gray-400'}`}>
-                                    <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor"><path fillRule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM7 15a1 1 0 011-1h4a1 1 0 110 2H8a1 1 0 01-1-1z" clipRule="evenodd" /></svg>
+                                <button aria-label="Align Center" onClick={() => setTextAlign('center')} className={`flex-1 py-1.5 flex justify-center border-l border-r border-gray-600 hover:bg-gray-700 ${textAlign === 'center' ? 'bg-gray-700 text-white' : 'text-gray-400'}`}>
+                                    <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor"><path fillRule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM7 15a1 1 0 011-1h4a1 1 0 110 2H8a1 1 0 01-1-1z" clipRule="evenodd" /></svg>
                                 </button>
-                                <button onClick={() => setTextAlign('right')} className={`flex-1 py-1.5 flex justify-center hover:bg-gray-700 ${textAlign === 'right' ? 'bg-gray-700 text-white' : 'text-gray-400'}`}>
-                                     <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor"><path fillRule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM9 15a1 1 0 011-1h6a1 1 0 110 2H10a1 1 0 01-1-1z" clipRule="evenodd" /></svg>
+                                <button aria-label="Align Right" onClick={() => setTextAlign('right')} className={`flex-1 py-1.5 flex justify-center hover:bg-gray-700 ${textAlign === 'right' ? 'bg-gray-700 text-white' : 'text-gray-400'}`}>
+                                     <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor"><path fillRule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM9 15a1 1 0 011-1h6a1 1 0 110 2H10a1 1 0 01-1-1z" clipRule="evenodd" /></svg>
                                 </button>
                             </div>
                         </div>
@@ -565,10 +565,11 @@ export const ImageEditor: React.FC<ImageEditorProps> = ({ imageSrc, onClose, onS
                                             <button onClick={() => watermarkFileRef.current?.click()} className="text-[10px] text-brand-400 font-bold hover:underline">Replace</button>
                                         </div>
                                         <button 
+                                            aria-label="Remove Watermark Image"
                                             onClick={clearWatermarkImage}
                                             className="p-1 text-gray-500 hover:text-red-500 transition-colors"
                                         >
-                                            <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+                                            <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
                                                 <path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd" />
                                             </svg>
                                         </button>
