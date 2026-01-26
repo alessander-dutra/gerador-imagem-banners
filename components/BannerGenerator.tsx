@@ -169,6 +169,7 @@ export const BannerGenerator: React.FC<BannerGeneratorProps> = ({
                        <img src={referenceImage} alt="Reference" className="w-full h-full object-contain" />
                        <button 
                          type="button"
+                         aria-label="Clear reference image"
                          onClick={clearReferenceImage}
                          className="absolute top-2 right-2 bg-black/70 text-white p-1 rounded-full hover:bg-red-500/80 transition-colors"
                        >

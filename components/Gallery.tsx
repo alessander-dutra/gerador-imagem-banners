@@ -77,20 +77,21 @@ const Lightbox: React.FC<LightboxProps> = ({ image, onClose }) => {
     <div className="fixed inset-0 z-[100] bg-black/95 backdrop-blur-xl flex flex-col items-center justify-center p-4">
       <div className="absolute top-4 right-4 flex items-center gap-3 z-10">
         <div className="flex items-center gap-1 bg-gray-800/80 rounded-lg p-1 border border-gray-700 shadow-xl">
-          <button onClick={() => setScale(s => Math.max(s - 0.5, 0.5))} className="p-2 text-gray-300 hover:text-white hover:bg-gray-700 rounded transition-colors" title="Zoom Out">
+          <button onClick={() => setScale(s => Math.max(s - 0.5, 0.5))} className="p-2 text-gray-300 hover:text-white hover:bg-gray-700 rounded transition-colors" title="Zoom Out" aria-label="Zoom out">
              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fillRule="evenodd" d="M3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clipRule="evenodd" /></svg>
           </button>
           <span className="text-xs font-mono text-gray-400 min-w-[3rem] text-center">{Math.round(scale * 100)}%</span>
-          <button onClick={() => setScale(s => Math.min(s + 0.5, 10))} className="p-2 text-gray-300 hover:text-white hover:bg-gray-700 rounded transition-colors" title="Zoom In">
+          <button onClick={() => setScale(s => Math.min(s + 0.5, 10))} className="p-2 text-gray-300 hover:text-white hover:bg-gray-700 rounded transition-colors" title="Zoom In" aria-label="Zoom in">
              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fillRule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clipRule="evenodd" /></svg>
           </button>
           <div className="w-px h-4 bg-gray-700 mx-1"></div>
-          <button onClick={reset} className="p-2 text-gray-300 hover:text-white hover:bg-gray-700 rounded transition-colors" title="Reset Zoom">
+          <button onClick={reset} className="p-2 text-gray-300 hover:text-white hover:bg-gray-700 rounded transition-colors" title="Reset Zoom" aria-label="Reset zoom">
              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fillRule="evenodd" d="M4 2a1 1 0 011-1v2.101a7.002 7.002 0 0111.601 2.566 1 1 0 11-1.885.666A5.002 5.002 0 005.999 7H9a1 1 0 110 2H4a1 1 0 01-1-1V3a1 1 0 011-1zm.008 9.057a1 1 0 011.276.61A5.002 5.002 0 0014.001 13H11a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0v-2.101a7.002 7.002 0 01-11.601-2.566 1 1 0 01.61-1.276z" clipRule="evenodd" /></svg>
           </button>
         </div>
         <button 
           onClick={onClose}
+          aria-label="Close preview"
           className="bg-red-500 hover:bg-red-600 text-white p-2 rounded-lg shadow-lg transition-colors"
         >
           <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -168,6 +169,7 @@ export const Gallery: React.FC<GalleryProps> = ({ images, isLoading = false, onE
                   <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-3 backdrop-blur-sm">
                     <button
                        onClick={() => setInspectingImage(image)}
+                       aria-label="Inspect details"
                        className="bg-white/10 hover:bg-white/20 text-white p-3 rounded-full transition-all hover:scale-110 border border-white/20 shadow-xl"
                        title="Inspect Details"
                      >
