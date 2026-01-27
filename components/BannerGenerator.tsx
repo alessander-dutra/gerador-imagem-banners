@@ -136,6 +136,7 @@ export const BannerGenerator: React.FC<BannerGeneratorProps> = ({
               name="productName"
               value={config.productName}
               onChange={handleInputChange}
+              required
               className="w-full bg-gray-900 border border-gray-700 rounded-lg px-4 py-2.5 text-white focus:ring-2 focus:ring-brand-500 focus:border-transparent transition-all outline-none"
               placeholder="e.g. NeoRunner X1"
             />
@@ -158,7 +159,7 @@ export const BannerGenerator: React.FC<BannerGeneratorProps> = ({
                     onClick={() => fileInputRef.current?.click()}
                     className="flex-1 flex flex-col items-center justify-center border-2 border-dashed border-gray-600 rounded-lg p-4 hover:border-brand-500 hover:bg-gray-700/50 transition-colors text-gray-400"
                   >
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 mb-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 mb-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
                     </svg>
                     <span className="text-xs">Upload Reference</span>
@@ -170,6 +171,7 @@ export const BannerGenerator: React.FC<BannerGeneratorProps> = ({
                        <button 
                          type="button"
                          onClick={clearReferenceImage}
+                         aria-label="Remove reference image"
                          className="absolute top-2 right-2 bg-black/70 text-white p-1 rounded-full hover:bg-red-500/80 transition-colors"
                        >
                          <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
@@ -202,6 +204,7 @@ export const BannerGenerator: React.FC<BannerGeneratorProps> = ({
               name="description"
               value={config.description}
               onChange={handleInputChange}
+              required
               rows={4}
               className="w-full bg-gray-900 border border-gray-700 rounded-lg px-4 py-2.5 text-white focus:ring-2 focus:ring-brand-500 focus:border-transparent transition-all outline-none resize-none"
               placeholder="Describe the product and the vibe of the ad. e.g. 'A futuristic running shoe on a neon city street, energetic, blue and purple lighting.'"
