@@ -136,6 +136,7 @@ export const BannerGenerator: React.FC<BannerGeneratorProps> = ({
               name="productName"
               value={config.productName}
               onChange={handleInputChange}
+              required
               className="w-full bg-gray-900 border border-gray-700 rounded-lg px-4 py-2.5 text-white focus:ring-2 focus:ring-brand-500 focus:border-transparent transition-all outline-none"
               placeholder="e.g. NeoRunner X1"
             />
@@ -171,6 +172,7 @@ export const BannerGenerator: React.FC<BannerGeneratorProps> = ({
                          type="button"
                          onClick={clearReferenceImage}
                          className="absolute top-2 right-2 bg-black/70 text-white p-1 rounded-full hover:bg-red-500/80 transition-colors"
+                         aria-label="Remove reference image"
                        >
                          <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
                            <path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd" />
@@ -202,6 +204,7 @@ export const BannerGenerator: React.FC<BannerGeneratorProps> = ({
               name="description"
               value={config.description}
               onChange={handleInputChange}
+              required
               rows={4}
               className="w-full bg-gray-900 border border-gray-700 rounded-lg px-4 py-2.5 text-white focus:ring-2 focus:ring-brand-500 focus:border-transparent transition-all outline-none resize-none"
               placeholder="Describe the product and the vibe of the ad. e.g. 'A futuristic running shoe on a neon city street, energetic, blue and purple lighting.'"
